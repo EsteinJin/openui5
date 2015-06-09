@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>test</title>
+
+    <script id='sap-ui-bootstrap' type='text/javascript'
+        src='/sapui5/resources/sap-ui-core.js'
+        data-sap-ui-theme='sap_goldreflection'
+        data-sap-ui-libs='sap.ui.commons,sap.ui.ux3'></script>
+        <!-- add 'sap.ui.table' and/or other libraries if required -->
+
+<script>
+    // call the new Control type "my.Hello"
+    sap.ui.core.Control.extend("my.Hello", {
+        metadata : { // the Control API 
+            properties : { 
+                name : "string" // setter and getter are created behind the scenes
+            } 
+        }, 
+        renderer : function(oRm, oControl) { 
+            // the part creating the HTML 
+            oRm.write("<span");
+            oRm.writeControlData(oControl); // required to make events work, writes the ID
+            oRm.write(">Hello ");
+            // write the Control property 'name', with XSS protection
+            oRm.writeEscaped(oControl.getName()); 
+            oRm.write("</span>"); 
+        } 
+    });
+
+    var oCtrl = new my.Hello({
+        name: "All"
+    });
+    oCtrl.placeAt("content");
+
+</script>
+
+</head>
+<body class='sapUiBody'>
+    <div id='content'></div>
+</body>
+</html>
+<!-- user: --><!-- description:SAPUI5 Training - Basic Notepad Control -->
+<!-- user:d046011 --><!-- description:basic custom control example -->

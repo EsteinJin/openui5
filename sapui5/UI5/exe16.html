@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+	<title>test</title>
+
+	<script id='sap-ui-bootstrap' type='text/javascript'
+		src='/sapui5/resources/sap-ui-core.js'
+		data-sap-ui-theme='sap_goldreflection'
+		data-sap-ui-libs='sap.ui.commons,sap.ui.ux3'></script>
+		<!-- add 'sap.ui.table' and/or other libraries if required -->
+
+	<script>
+		
+		var data = {
+			persons: [
+				{first: "Donald", last: "Duck"},
+				{first: "Mickey", last: "Mouse"},
+				{first: "Dagobert", last: "Duck"},				
+			]
+		}
+		var oModel = new sap.ui.model.json.JSONModel(data);
+		sap.ui.getCore().setModel(oModel);
+		
+		sap.ui.core.Element.extend("PersonItem", { metadata : {
+			properties : {
+				"first" : {type : "string"},
+				"last" : {type: "string"}
+			}
+		}});	    
+    
+		sap.ui.core.Control.extend("Person", { 
+			// the control API:
+			metadata : {
+				aggregations : {
+					"items" : { type: "PersonItem", multiple : true, singularName : "item"}
+				},
+				defaultAggregation : "items",				
+			},
+			
+			// the part creating the HTML:
+			renderer : function(oRm, oControl) {  
+				oRm.write("<ul style='margin: 20px 50px;'"); 
+				oRm.writeControlData(oControl);                		
+				oRm.write(">");
+				var aItems = oControl.getItems();
+				for (var i = 0;i<aItems.length;i++) {
+				oRm.write("<li style='padding-top: 20px; font-size: 16px; color: #006699; font-weight: bold'>");
+					oRm.write(aItems[i].getFirst());
+					oRm.write("&nbsp;");
+					oRm.write(aItems[i].getLast());
+					oRm.write("</li>");
+				}
+				oRm.write("</ul>");
+			}
+		});	
+
+		var mypers = new Person({
+			items: {
+				path: "/persons",
+				template: 
+					new PersonItem({
+					first: "{first}",
+					last: "{last}"	
+				})
+			}
+		});
+		
+		mypers.placeAt("content");	
+
+		
+		
+		
+		
+		
+	</script>
+
+</head>
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+</html>
+<!-- user:tim --><!-- description:Notepad Control with list data binding -->
+<!-- user: --><!-- description: -->
+<!-- user: --><!-- description: -->

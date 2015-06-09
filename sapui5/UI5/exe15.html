@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+	<title>test</title>
+
+	<script id='sap-ui-bootstrap' type='text/javascript'
+		src='/sapui5/resources/sap-ui-core.js'
+		data-sap-ui-theme='sap_goldreflection'
+		data-sap-ui-libs='sap.ui.commons,sap.ui.ux3,sap.ui.table'></script>
+		<!-- add 'sap.ui.table' and/or other libraries if required -->
+
+	<script>
+		
+	//create content for UI Area 'header'
+	var oAppHeader = new sap.ui.commons.ApplicationHeader("appHeader"); 
+	oAppHeader.setLogoText("SAPUI5 Overview Exercises");
+	oAppHeader.setDisplayWelcome(false);
+	oAppHeader.setDisplayLogoff(false);
+	oAppHeader.placeAt("header");
+		
+	//create content for UI Area 'menu'
+	var oMenubar = new sap.ui.commons.MenuBar;		
+	var oMenubarItem1 = new sap.ui.commons.MenuItem("menuitem-1",{text:"Menu-Item 1"});
+	oMenubar.addItem(oMenubarItem1);
+	var oMenubarItem2 = new sap.ui.commons.MenuItem("menuitem-2",{text:"Menu-Item 2"});
+	oMenubar.addItem(oMenubarItem2);
+	oMenubar.placeAt("menu");
+
+	//the content for UI Area 'content'	
+		
+	// the Date panel	
+	
+	var oData = {date:new Date()};	
+
+	var oPanel3 = new sap.ui.commons.Panel("Date",{
+		text:{
+			path: "/date", 
+			type: new sap.ui.model.type.Date({pattern:"dd.MM.YYYY"})
+		
+		}
+	});	
+		
+	var oModel2 = new sap.ui.model.json.JSONModel();
+	oModel2.setData(oData);
+	oPanel3.setModel(oModel2);	
+		
+	oPanel3.placeAt("content");
+
+	// the "Enter Data" panel
+
+	var data = {firstName: "John", lastName: "Doe",};
+		
+	var oModel = new sap.ui.model.json.JSONModel();
+	oModel.setData(data);
+	sap.ui.getCore().setModel(oModel);
+		
+	var model = new sap.ui.model.json.JSONModel();		
+	model.setJSON('{"selection": "Please select", "data": [{"text": "John", "key": "John"},{"text": "Sarah", "key": "Sarah"},	{"text": "Karl", "key": "Karl"},	{"text": "Peter",  "key": "Peter"},	{"text": "Susan", "key": "Susan"}, {"text": "Anne", "key": "Anne"},	{"text": "Frank", "key": "Frank"}]}');
+		
+	var oSorter = new sap.ui.model.Sorter("text", false);	
+	var oFilter = new sap.ui.model.Filter("text",    
+       sap.ui.model.FilterOperator.BT, "A","M"); 
+		
+	var oPanel = new sap.ui.commons.Panel("panel",{text:"Enter Data"});
+	var oLabel1 = new sap.ui.commons.Label({text: "First Names, alphabetically:"});
+	var oLabel3 = new sap.ui.commons.Label({text: "First Names, between A and M:"});
+	var oTextField1 = new sap.ui.commons.TextField({id : 'Field1',value : ''});	
+	var oItemTemplate = new sap.ui.core.ListItem("name", {text:"{text}",key:"{key}"});
+	var oComboBox = new sap.ui.commons.ComboBox("ComboBox",{
+		items:{path:"/data",template:oItemTemplate,sorter: oSorter},
+		change: function(oEvent){sap.ui.getCore().byId("Field1").setValue(oEvent.oSource.getSelectedKey());	} });		
+
+	var oComboBox2 = new sap.ui.commons.ComboBox("ComboBox2",{
+		items:{path:"/data",template:oItemTemplate,filters: [oFilter]},
+		change: function(oEvent){sap.ui.getCore().byId("Field1").setValue(oEvent.oSource.getSelectedKey());	} });		
+			
+		
+	var oLabel2 = new sap.ui.commons.Label({text: "Last Name:"});
+    var oTextField2 = new sap.ui.commons.TextField("Field2",{value: "{/lastName}"});
+	
+	var oTextView2 = new sap.ui.commons.TextView("textView2", {
+		text: {
+			path: "/lastName",
+			formatter: upperCase
+			} 
+	});	
+
+	function upperCase(sVal) {
+	if (!sVal) return;
+	return sVal.toUpperCase();
+	};	
+
+		
+	var oButton = new sap.ui.commons.Button("btn",{text: "Submit",press:update});
+		
+	function update(){
+	oModel.setData({lastName: sap.ui.getCore().byId("Field2").getValue()}, true);
+	};	
+		
+	
+
+    oComboBox.setModel(model);
+    oComboBox.bindValue("/selection");	
+	oComboBox2.setModel(model);
+    oComboBox2.bindValue("/selection");	
+		
+	var oLayout = new sap.ui.commons.layout.MatrixLayout();	
+	oLayout.createRow(oLabel1,oLabel3,0).createRow(oComboBox, oComboBox2, oTextField1);
+	oLayout.createRow(oLabel2,0,0).createRow(oTextField2,0, oTextView2);
+	oLayout.createRow(oButton,0,0);
+    oPanel.addContent(oLayout).placeAt("content");
+
+		
+	//JS View
+    sap.ui.jsview("mvcexample.jsView", {
+
+        getControllerName : function() {
+            return "mvcexample.jsView";
+        },
+        
+        createContent : function(oController) {
+            var oButton = new sap.ui.commons.Button({
+                id: "jsview_btn",
+                text: "JS View Button",
+                press: function(oEvent){
+                    alert("JS View Button pressed!");
+                }
+            });
+            
+            return oButton;
+        }
+        
+    });
+    
+    //JS View Controller
+    sap.ui.controller("mvcexample.jsView", {});
+    
+    //XML View
+    var xml = '<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.ui.commons" '
+            + 'controllerName="mvcexample.xmlView" xmlns:html="http://www.w3.org/1999/xhtml">'
+	        + '<Button id="xmlButton" press="xmlBtnPress" text="XML View Button"></Button>'
+            + '</core:View>';
+    
+    //XML View Controller
+    sap.ui.controller("mvcexample.xmlView", {
+      xmlBtnPress: function(){
+           alert("XML View Button pressed!");
+      }
+    });
+    
+    //JSON View
+    var json = {
+        "Type":"sap.ui.core.mvc.JSONView",
+        "controllerName":"mvcexample.jsonView",
+        "content": [{
+            "Type" : "sap.ui.commons.Button",
+            "id" : "jsonViewBtn",
+            "press" : "jsonViewBtnPress",
+            "text" : "JSON View Button"
+        }]
+    }
+        
+    //JSON View Controller
+    sap.ui.controller("mvcexample.jsonView", {
+        jsonViewBtnPress: function(){
+            alert("JSON View Button pressed!");
+        }
+    });    
+    
+    sap.ui.localResources("mvcexample");
+                     
+    var jsview = sap.ui.view({id:"js1", viewName:"mvcexample.jsView", type:sap.ui.core.mvc.ViewType.JS});
+    var xmlview = sap.ui.xmlview({viewContent:xml});
+    var jsonview = sap.ui.jsonview({viewContent:json});
+		
+	// the View panel	
+	var oPanel2 = new sap.ui.commons.Panel("Views",{text:"View Options"});		
+
+	var oLayout2 = new sap.ui.commons.layout.HorizontalLayout("Layout2", {
+	content: [jsview,xmlview,jsonview] 	});		
+	
+	oPanel2.addContent(oLayout2).placeAt('content');		
+		
+	// the Table panel	
+	
+	
+	var oPanel4 = new sap.ui.commons.Panel("panel4",{text:"Calculated Fields"});	
+	var tableData = { 
+		"teamMembers":[ 
+			{"firstName":"Clark", "lastName":"Kent", "gender":"male", "occupation":"Superman"}, 
+			{"firstName":"Donald", "lastName":"Duck", "gender":"male", "occupation":"a millionare"},
+			{"firstName":"Marge", "lastName":"Simpson", "gender":"female", "occupation":"a housewife"},
+			{"firstName":"Jane", "lastName":"Marple", "gender":"female", "occupation":"a detective"},
+			{"firstName":"Tony", "lastName":"Stark", "gender":"male", "occupation":"Ironman"},
+			{"firstName":"James", "lastName":"Kirk", "gender":"male", "occupation":"a Starfleet captain"},
+			{"firstName":"Hermione", "lastName":"Granger", "gender":"female", "occupation":"a witch"}]};
+    	
+    var oModel3 = new sap.ui.model.json.JSONModel(tableData);
+	var oTable = new sap.ui.table.Table({
+	columns: [
+		new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({ text: "First Name" }), 
+			template: new sap.ui.commons.TextView({ text: "{firstName}" }), 
+			width: "150px" }),
+		new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({ text: "Last Name" }), 
+			template: new sap.ui.commons.TextView({ text: "{lastName}" }), 
+			width: "150px" }),
+		new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({ text: "Description" }),
+			template: new sap.ui.commons.TextView({ text: {
+				parts: [
+					{path: "gender"},
+					{path: "firstName"},
+					{path: "lastName"},
+					{path: "occupation"}],
+				formatter: function (gender,firstName,lastName,occupation){
+						if (gender && firstName && lastName && occupation) {
+							if (gender == "male") {
+							return "Mister " + firstName + " " + lastName + " works as " + occupation;
+							} else {
+							return "Miss " + firstName + " " + lastName + " works as " + occupation;
+							}
+						}
+						return null;
+				}
+			}})
+		})
+	],
+	visibleRowCount: 7,
+	});
+		
+	oTable.setModel(oModel3);
+	oTable.bindRows("/teamMembers");
+
+	oPanel4.addContent(oTable).placeAt("content");    
+		
+	// the oData panel	
+		
+	var oPanel5 = new sap.ui.commons.Panel("panel5",{text:"OData"});	
+	
+		
+		// the backend OData Service URL
+		var uri = "/databinding/proxy/http/services.odata.org/Northwind/Northwind.svc"; 
+        
+        // create OData model from URL
+        var oModel4 = new sap.ui.model.odata.ODataModel(uri, true); 
+        var oTable = new sap.ui.table.Table({ // create Table UI 
+            columns : [ 
+				{label: "ID", template: "EmployeeID", sortProperty: "EmployeeID"},				
+				{label: "First Name", template: "FirstName", sortProperty: "FirstName"},   				
+                {label: "Last Name", template: "LastName", sortProperty: "LastName"},   
+                {label: "Title", template: "Title", sortProperty: "Title"},
+				{label: "Notes", template: "Notes", sortProperty: "Notes"}
+            ],
+        });
+		
+        oTable.setModel(oModel4); // bind model to Table
+        oTable.bindRows("/Employees");
+		
+	   oPanel5.addContent(oTable).placeAt("content");
+
+    // add handler to alert textfield values
+    oButton.attachPress(function() {
+        var msg = "First Name: " + sap.ui.getCore().byId("Field1").getValue() 
+            + "\n" + "Last Name: " + sap.ui.getCore().byId("Field2").getValue()
+            + "\n" + "HTML element type: " + jQuery.sap.domById("panel");
+        alert(msg);
+    });
+		
+	</script>
+
+</head>
+<body class='sapUiBody'>
+	<div id='header'></div>	
+	<div id='menu'></div>	
+	<div id='content'></div>
+</body>
+</html>
+<!-- user:Tatjana Royal --><!-- description:Exercise 1 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 2 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 3 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 7 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 8 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 9 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 10 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 11 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 12 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 13 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 15 -->
+<!-- user: --><!-- description: -->

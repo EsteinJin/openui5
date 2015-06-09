@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+	<title>test</title>
+	<style>
+		.sapUiTv {padding: 10px;}		
+		#content1 {float: left; width: 45%; border: 1px solid #000; background-color: #ffcc00; margin-bottom: 30px}
+		#content2 {float: right; width: 45%; border: 1px solid #000; background-color: #00aacc; color: #fff; }
+		#content3 {clear: both; color: #ff8800; background-color: #fff; border: 1px solid #000;}
+	</style>
+
+	<script id='sap-ui-bootstrap' type='text/javascript'
+		src='/sapui5/resources/sap-ui-core.js'
+		data-sap-ui-theme='sap_goldreflection'
+		data-sap-ui-libs='sap.ui.commons,sap.ui.ux3'></script>
+		<!-- add 'sap.ui.table' and/or other libraries if required -->
+
+	<script>
+		
+	//create content for UI Area 'content1'
+	var oAppHeader = new sap.ui.commons.ApplicationHeader("appHeader"); 
+
+	oAppHeader.setLogoSrc("http://www.sap.com/global/images/SAPLogo.gif");
+	oAppHeader.setLogoText("This is UI Area 1");
+
+	oAppHeader.setDisplayWelcome(false);
+	oAppHeader.setDisplayLogoff(false);
+
+	oAppHeader.placeAt("content1");
+		
+	var oTextView = new sap.ui.commons.TextView();
+	oTextView.setText("Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. ");
+	oTextView.setTooltip("Some Tooltip");
+
+	oTextView.placeAt("content1");
+		
+	//create content for UI Area 'content2'
+	var oAppHeader2 = new sap.ui.commons.ApplicationHeader("appHeader2"); 
+		
+	oAppHeader2.setLogoSrc("http://www.sap.com/global/images/SAPLogo.gif");
+	oAppHeader2.setLogoText("This is UI Area 2");
+
+	oAppHeader2.setDisplayWelcome(false);
+	oAppHeader2.setDisplayLogoff(false);
+
+	oAppHeader2.placeAt("content2");		
+		
+	var oTextView2 = new sap.ui.commons.TextView();
+	oTextView2.setText("Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. ");
+	oTextView2.setTooltip("Some Tooltip");
+
+	oTextView2.placeAt("content2");
+		
+	//create content for UI Area 'content3'
+	var oAppHeader3 = new sap.ui.commons.ApplicationHeader("appHeader3"); 
+		
+	oAppHeader3.setLogoSrc("http://www.sap.com/global/images/SAPLogo.gif");
+	oAppHeader3.setLogoText("This is UI Area 3");
+
+	oAppHeader3.setDisplayWelcome(false);
+	oAppHeader3.setDisplayLogoff(false);
+
+	oAppHeader3.placeAt("content3");		
+		
+	var oTextView3 = new sap.ui.commons.TextView();
+	oTextView3.setText("Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. ");
+	oTextView3.setTooltip("Some Tooltip");
+
+	oTextView3.placeAt("content3");
+	</script>
+
+</head>
+<body class='sapUiBody'>
+	<div id='content1'></div>
+	<div id='content2'></div>
+	<div id='content3'></div>
+</body>
+</html>
+<!-- user:Tatjana Royal --><!-- description:example of multiple UI Areas -->

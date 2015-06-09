@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>OData Binding Example Northwind</title>
+    
+    <script id='sap-ui-bootstrap' type='text/javascript'
+      src='/sapui5/resources/sap-ui-core.js'
+      data-sap-ui-theme='sap_goldreflection'
+      data-sap-ui-libs='sap.ui.commons,sap.ui.table'></script>
+    
+    <script>
+		
+		// the backend OData Service URL
+		var uri = "/databinding/proxy/http/services.odata.org/Northwind/Northwind.svc"; 
+        
+        // create OData model from URL
+        var oModel = new sap.ui.model.odata.ODataModel(uri, true); 
+        var oTable = new sap.ui.table.Table({ // create Table UI 
+            columns : [ 
+                {label: "Category", template: "CategoryName", sortProperty: "CategoryName"},   				
+                {label: "Name", template: "ProductName", sortProperty: "ProductName"},   
+                {label: "Sales", template: "ProductSales", sortProperty: "ProductSales"}
+            ]
+        });
+		
+        oTable.setModel(oModel); // bind model to Table
+        oTable.bindRows("/Product_Sales_for_1997");
+        oTable.placeAt("content"); // place Table onto UI
+        
+    
+	
+	
+	
+	</script>
+    
+    </head>
+    <body class='sapUiBody'>
+        <div id='content'></div>
+    </body>
+</html>
+<!-- user:Tatjana Royal --><!-- description:Example OData Northwind -->

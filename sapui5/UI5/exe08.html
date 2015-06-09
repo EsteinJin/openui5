@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Property Binding</title>
+    
+    <script id='sap-ui-bootstrap' type='text/javascript'
+      src='/sapui5/resources/sap-ui-core.js'
+      data-sap-ui-theme='sap_goldreflection'
+      data-sap-ui-libs='sap.ui.commons'></script>
+    
+    <script>
+        
+        // JSON sample data
+        var data = {  
+            name: "John",
+            enabled: false
+        };
+        
+        var oModel = new sap.ui.model.json.JSONModel(); // create JSON model instance
+        oModel.setData(data); // set the data for the model
+        sap.ui.getCore().setModel(oModel); // assign the model globally to the core
+        
+        var oTxt = new sap.ui.commons.TextField({  
+            value: "{/name}" // binding syntax using curly braces
+        });
+        
+        // alternative: generic bind method bindProperty(control property, model property)
+        oTxt.bindProperty("enabled", "/enabled");
+        
+        oTxt.placeAt("content");
+        
+    </script>
+    
+    </head>
+    <body class='sapUiBody'>
+        <div id='content'></div>
+    </body>
+</html>
+<!-- user:d046011 --><!-- description:basic property binding (data binding json model) -->

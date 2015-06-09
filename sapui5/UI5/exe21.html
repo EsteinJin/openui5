@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+	<title>test</title>
+
+	<script id='sap-ui-bootstrap' type='text/javascript'
+		src='/sapui5/resources/sap-ui-core.js'
+		data-sap-ui-theme='sap_bluecrystal'
+		data-sap-ui-libs='sap.m'></script>
+		<!-- add 'sap.ui.table' and/or other libraries if required -->
+
+	<script>
+    // it initializes the HTML page for mobile use
+    var app = new sap.m.App("myApp", {}); 
+
+    // create the Input variables
+		var oText1 = new sap.m.Input({value:"", placeholder:"Enter a first name"});
+		var oText2 = new sap.m.Input({value:"", placeholder:"Enter a last name"});
+
+    // create the page of your application		
+		var page = new sap.m.Page("page1", {
+              title: "First Page",
+              content : [
+				  new sap.m.Label ({text: "First Name:"}),
+				  oText1,
+				  new sap.m.Label({text: "Last Name:"}),
+				  oText2,
+				  new sap.m.Button({  
+					text : "Submit",
+					tap : function() {
+                      var msg = "First Name: " + oText1.getValue()
+						+ "\n" + "Last Name: " + oText2.getValue();
+						alert(msg);   
+					  }
+				  }),
+				]			 
+          });
+          
+	
+          app.addPage(page); // add the page to the App
+          
+          app.placeAt("content"); // place the App into the HTML document
+    
+
+	</script>
+
+</head>
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+</html>
+<!-- user:Tatjana Royal --><!-- description:Exercise 20 -->

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>test</title>
+
+    <script id='sap-ui-bootstrap' type='text/javascript'
+        src='/sapui5/resources/sap-ui-core.js'
+        data-sap-ui-theme='sap_goldreflection'
+        data-sap-ui-libs='sap.ui.commons,sap.ui.ux3,sap.ui.table'></script>
+        <!-- add 'sap.ui.table' and/or other libraries if required -->
+ 
+    <script type="text/javascript">
+ 	
+    	// table
+    	var tableData = {
+	  		"teamMembers":[
+				{"firstName":"Andrea", "lastName":"Klark", "gender":"female"},
+				{"firstName":"Peter", "lastName":"Miller", "gender":"male"},
+				{"firstName":"Gina", "lastName":"Rush", "gender":"female"},
+				{"firstName":"Steave", "lastName":"Ander", "gender":"male"},
+				{"firstName":"Michael", "lastName":"Spring", "gender":"male"},
+				{"firstName":"Marc", "lastName":"Green", "gender":"male"},
+				{"firstName":"Frank", "lastName":"Wallace", "gender":"male"}
+	   		]
+    	};
+    	
+    	var oModel = new sap.ui.model.json.JSONModel(tableData);
+    	
+		var oTable = new sap.ui.table.Table({
+			columns: [
+					   //calc fields binding
+		               new sap.ui.table.Column({
+		                   label: new sap.ui.commons.Label({ text: "Full Name" }),
+		                   template: new sap.ui.commons.TextView({ text: {
+							 parts: [
+		       						{path: "firstName"},
+		       						{path: "lastName"},
+		       						{path: "gender"}
+		       				 ],
+		                   	formatter: function (firstName, lastName, gender){
+		                   		if (firstName && lastName && gender) {
+		                   			if (gender == "male") {
+		                   				return "Mister " + firstName + " " + lastName;	                    			
+		                   			} else {
+		                   				return "Miss " + firstName + " " + lastName;
+		                   			}
+		                   		}
+		                   		return null;
+		                   	}
+		                   } 
+		                   })
+		               }),
+		               // single property binding
+		               new sap.ui.table.Column({
+		            	   label: new sap.ui.commons.Label({ text: "First Name" }),
+		            	   template: new sap.ui.commons.TextView({ text: "{firstName}" })
+		               }),
+		               // single property binding
+		               new sap.ui.table.Column({
+		            	   label: new sap.ui.commons.Label({ text: "Last Name" }),
+		            	   template: new sap.ui.commons.TextView({ text: "{lastName}" })
+		               })
+		           ]
+		});
+  
+       oTable.setModel(oModel);
+	   oTable.bindRows("/teamMembers");
+	   oTable.placeAt("content");
+    	
+    	
+    </script>
+  </head>
+ 
+  <body class="sapUiBody">
+ 
+    <div id="content"></div>
+ 
+  </body>
+ 
+</html>
+<!-- user:Tatjana Royal --><!-- description:Example Calculated Fields -->

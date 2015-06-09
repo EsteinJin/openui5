@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+	<title>test</title>
+
+	<script id='sap-ui-bootstrap' type='text/javascript'
+		src='/sapui5/resources/sap-ui-core.js'
+		data-sap-ui-theme='sap_goldreflection'
+		data-sap-ui-libs='sap.ui.commons,sap.ui.ux3'></script>
+		<!-- add 'sap.ui.table' and/or other libraries if required -->
+
+	<script>
+		
+	//create content for UI Area 'header'
+	var oAppHeader = new sap.ui.commons.ApplicationHeader("appHeader"); 
+	oAppHeader.setLogoText("SAPUI5 Overview Exercises");
+	oAppHeader.setDisplayWelcome(false);
+	oAppHeader.setDisplayLogoff(false);
+	oAppHeader.placeAt("header");
+		
+	//create content for UI Area 'menu'
+	var oMenubar = new sap.ui.commons.MenuBar;		
+	var oMenubarItem1 = new sap.ui.commons.MenuItem("menuitem-1",{text:"Menu-Item 1"});
+	oMenubar.addItem(oMenubarItem1);
+	var oMenubarItem2 = new sap.ui.commons.MenuItem("menuitem-2",{text:"Menu-Item 2"});
+	oMenubar.addItem(oMenubarItem2);
+	oMenubar.placeAt("menu");
+
+	//the content for UI Area 'content'		
+	var oPanel = new sap.ui.commons.Panel("panel",{text:"Enter Data"});
+	var oLabel1 = new sap.ui.commons.Label({text: "First Name:"});
+    var oTextField1 = new sap.ui.commons.TextField("Field1");
+	var oLabel2 = new sap.ui.commons.Label({text: "Last Name:"});
+    var oTextField2 = new sap.ui.commons.TextField("Field2");
+    var oButton = new sap.ui.commons.Button({text: "Submit"});
+	var oLayout = new sap.ui.commons.layout.VerticalLayout("Layout1", {
+	content: [oLabel1, oTextField1,oLabel2, oTextField2, oButton]
+	});
+    oPanel.addContent(oLayout).placeAt("content");
+    
+    // add handler to alert textfield values
+    oButton.attachPress(function() {
+        var msg = "First Name: " + sap.ui.getCore().byId("Field1").getValue() 
+            + "\n" + "Last Name: " + sap.ui.getCore().byId("Field2").getValue()
+            + "\n" + "HTML element type: " + jQuery.sap.domById("panel");
+        alert(msg);
+    });
+
+	</script>
+
+</head>
+<body class='sapUiBody'>
+	<div id='header'></div>	
+	<div id='menu'></div>	
+	<div id='content'></div>
+</body>
+</html>
+<!-- user:Tatjana Royal --><!-- description:Exercise 1 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 2 -->
+<!-- user:Tatjana Royal --><!-- description:Exercise 3 -->

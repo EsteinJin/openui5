@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html><head>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+	<title>test</title>
+
+	<script id='sap-ui-bootstrap' type='text/javascript'
+		src='/sapui5/resources/sap-ui-core.js'
+		data-sap-ui-theme='sap_goldreflection'
+		data-sap-ui-libs='sap.ui.commons,sap.ui.ux3'></script>
+		<!-- add 'sap.ui.table' and/or other libraries if required -->
+
+	<script>
+		sap.ui.jsview("training.musicstore", {
+	
+	  getControllerName : function() {
+			 return "training.musicstore";
+		  },	
+
+	createContent : function(oController) {
+		
+		//searchfield
+		var oSearchField = new sap.ui.commons.SearchField({
+			search : [ oController.onSearch, oController ]
+		});
+		
+		//audio control
+		sap.ui.core.Control.extend("AudioPlayer", {
+			metadata : {
+				properties : {
+					src : "string"
+				}
+			},
+			setSrc : function(sValue) {
+				this.setProperty("src", sValue);
+			},
+			renderer : function(oRm, oControl) {
+				oRm.write("<audio controls='controls' ");
+				oRm.writeControlData(oControl);
+				oRm.write(">");
+				oRm.write("<source src='" + oControl.getSrc()
+						+ "' type='audio/mpeg'>");
+				oRm.write("</audio>");
+			}
+		});
+
+		//table
+		var oTable = new sap.ui.table.Table({
+			rows : {
+				path : "/results",
+				sorter : new sap.ui.model.Sorter("artistName")
+			},
+			rowSelectionChange : [ oController.onSelectionChange, oController ]
+		});
+
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "Cover"
+			}),
+			template : new sap.ui.commons.Image({
+				src : "{artworkUrl30}"
+			})
+		}));
+
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "Title"
+			}),
+			template : new sap.ui.commons.TextView({
+				text : "{trackName}"
+			})
+		}));
+
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "Artist Name"
+			}),
+			template : new sap.ui.commons.TextView({
+				text : "{artistName}"
+			})
+		}));
+		oTable.addColumn(new sap.ui.table.Column({ //new AudioPlayer Column
+			label : new sap.ui.commons.Label({
+				text : "Listen"
+			}),
+			template : new AudioPlayer("audioPlayer",{
+				src : "{previewUrl}"
+			})
+		}));		
+		
+
+		var oLayout = new sap.ui.commons.layout.VerticalLayout({
+			width : "100%"
+		});
+        oLayout.addContent(oSearchField);
+		oLayout.addContent(oTable);
+		return oLayout;
+
+	}
+
+});
+
+	</script>
+
+</head>
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+</html>
+<!-- user:Tatjana Royal --><!-- description:Exercise 22 - musicstore.view.js -->
