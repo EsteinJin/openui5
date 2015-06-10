@@ -1,18 +1,15 @@
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
-
-SAPUI5 exercise code, really cool ui framework.
-feel free to download the source code.
+,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
+'  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
+|  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
+'  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
+ `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
+----------------------------------------------------------------- 
+SAPUI5 exercise code, really cool ui framework. feel free to download the source code.
 Code pushed from cloud9 IDE, really good cloud based development environment.
 
-
-Runtime and SDK available on :http://openui5.org/
+Runtime and SDK available on :
+http://openui5.org/
 https://github.com/SAP/openui5
-
 
 https://ui5-steinjin.c9.io/sapui5/UI5/exe01.html
 https://ui5-steinjin.c9.io/sapui5/UI5/exe02.html
